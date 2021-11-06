@@ -18,6 +18,18 @@ $websiteText = [
         "url" => "/"
     ]
 ];
+
+$action = null;
+
+if(!empty($_GET['action'])) 
+    $action = $_GET['action'];
+
+
+function isUserOnUrlWhereHeCanAddTask($currentAction): bool
+{
+    return $currentAction === 'create';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +51,13 @@ $websiteText = [
             <a href="<?= $websiteText['show-tasks-button']['url'] ?>">
                 <?= $websiteText['show-tasks-button']['text'] ?>
             </a>
+        </div>
+        <div>
+            <?php if(isUserOnUrlWhereHeCanAddTask($action)): ?>
+                <p>Dodaj task</p>
+            <?php else: ?>
+                <p>Twoje zadania</p>
+            <?php endif ;?>
         </div>
     </main>
 </body>
