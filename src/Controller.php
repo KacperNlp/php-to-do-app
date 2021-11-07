@@ -8,29 +8,29 @@ require_once('./src/View.php');
 
 class Controller
 {
-    private array $postParams;
-    private array $getParams;
+    private array $request;
+    private $view;
     const TYPE_OF_ACCEPTERD_ACTIONS = [
         "add-task" => "create",
         "new-task" => "added",
         "task-list" => "list"
     ];
 
-    public function __construct(array $postParams, array $getParams)
+    public function __construct(array $request)
     {
-        $this->postParams = $postParams;
-        $this->getParams = $getParams;
+        $this->request = $request;
+        $this->view = new View();
     }
 
     public function controllDisplayingPage(): void
     {
-        $view = new View();
-        $action = $this->getParams['action'] ?? null;
+        $action = $this->getCurrentActionOfGet();
+        $dataPostParams = $this->getDataFromPost();
 
         if($this->ifActionIsDifferentThanExpectet($action))
             $action = null;
 
-        $view->renderLayout($action, $this->postParams, self::TYPE_OF_ACCEPTERD_ACTIONS);
+        $this->view->renderLayout($action, $dataPostParams, self::TYPE_OF_ACCEPTERD_ACTIONS);
     }
 
     private function ifActionIsDifferentThanExpectet(?string $actionName): bool
@@ -40,5 +40,16 @@ class Controller
         || $actionName === self::TYPE_OF_ACCEPTERD_ACTIONS['task-list'])
             return false;
         return true;
+    }
+
+    private function getCurrentActionOfGet(): ?string
+    {
+        $currentAction = $this->request['get']['action'];
+        return $currentAction ?? null;
+    }
+
+    private function getDataFromPost(): array
+    {
+        return $this->request['post'] ?? [];
     }
 }
