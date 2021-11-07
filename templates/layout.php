@@ -25,10 +25,20 @@
         </div>
         <div class="content">
             <?php 
-                if($this->isUserOnUrlWhereHeCanAddTask($urlParam))
-                    include_once('./templates/pages/add-task.php');
-                else 
-                    include_once('./templates/pages/list.php');
+                switch($urlParam):
+                    case $typeOfActions['add-task']:
+                        include_once('./templates/pages/add-task.php');
+                    break;
+                    case $typeOfActions['new-task']:
+                        include_once('./templates/pages/new-task.php');
+                    break;
+                    case $typeOfActions['task-list']:
+                        include_once('./templates/pages/list.php');
+                    break;
+                    default:
+                        include_once('./templates/pages/404.php');
+                    break;
+                endswitch;
             ;?>
         </div>
     </main>

@@ -1,6 +1,6 @@
 <div>
     <h2>Add your new task</h2>
-    <form method="post" action="/?action=create">
+    <form method="post" action="/?action=added">
         <label for="">
             <span>Title:</span>
             <input type="text" id="title" name="task-title" placeholder="Task title...">

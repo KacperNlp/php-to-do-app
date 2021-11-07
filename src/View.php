@@ -6,8 +6,6 @@ namespace App;
 
 class View 
 {
-    const NAME_OF_URL_WHERE_USER_CAN_CREATE_TASK = 'create';
-
     public array $websiteText = [
         "website-name" => "To do App",
         "website-header" => "Your tasks list",
@@ -17,18 +15,12 @@ class View
         ],
         "show-tasks-button" => [
             "text" => "Show all tasks",
-            "url" => "/"
+            "url" => "/?action=list"
         ]
     ];
 
-    public function renderLayout(?string $urlParam, array $params): void
+    public function renderLayout(?string $urlParam, array $params, array $typeOfActions): void
     {
-        dump($params);
         include_once('./templates/layout.php');
-    }
-
-    public function isUserOnUrlWhereHeCanAddTask($urlParam): bool
-    {
-        return $urlParam === self::NAME_OF_URL_WHERE_USER_CAN_CREATE_TASK;
     }
 }
