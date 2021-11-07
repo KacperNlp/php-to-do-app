@@ -21,9 +21,9 @@ class View
         ]
     ];
 
-    public function renderLayout(?string $urlParam): void
+    public function renderLayout(?string $urlParam, array $params): void
     {
-
+        dump($params);
         include_once('./templates/layout.php');
     }
 
