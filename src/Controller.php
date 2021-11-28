@@ -13,7 +13,8 @@ class Controller
     const TYPE_OF_ACCEPTERD_ACTIONS = [
         "add-task" => "create",
         "new-task" => "added",
-        "task-list" => "list"
+        "task-list" => "list",
+        "empty" => ""
     ];
 
     public function __construct(array $request)
@@ -37,14 +38,19 @@ class Controller
     {
         if($actionName === self::TYPE_OF_ACCEPTERD_ACTIONS['add-task']
         || $actionName === self::TYPE_OF_ACCEPTERD_ACTIONS['new-task']
-        || $actionName === self::TYPE_OF_ACCEPTERD_ACTIONS['task-list'])
+        || $actionName === self::TYPE_OF_ACCEPTERD_ACTIONS['task-list']
+        || $actionName === self::TYPE_OF_ACCEPTERD_ACTIONS['empty'])
             return false;
         return true;
     }
 
     private function getCurrentActionOfGet(): ?string
     {
-        $currentAction = $this->request['get']['action'];
+        $requestGet =  $this->request['get'];
+        if(count($requestGet) < 1)
+            return null;
+
+        $currentAction = $requestGet['action'];
         return $currentAction ?? null;
     }
 

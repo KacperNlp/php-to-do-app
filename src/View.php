@@ -8,7 +8,7 @@ class View
 {
     public array $websiteText = [
         "website-name" => "To do App",
-        "website-header" => "Your tasks list",
+        "website-header" => "Welcome on Task-Web",
         "add-task-button" => [
             "text" => "Add new task",
             "url" => "/?action=create"
@@ -16,6 +16,10 @@ class View
         "show-tasks-button" => [
             "text" => "Show all tasks",
             "url" => "/?action=list"
+        ],
+        "back-to-menu" => [
+            "text" => "Back to menu",
+            "url" => "/"
         ]
     ];
 

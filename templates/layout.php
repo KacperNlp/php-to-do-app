@@ -9,19 +9,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $websiteText['website-name'] ?></title>
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
+    <?php if($urlParam != $typeOfActions['empty']) :?>
+        <a href="<?= $websiteText['back-to-menu']['url'] ;?>" class="back-to-menu-btn">
+            <?= $websiteText['back-to-menu']['text'] ;?>
+        </a>
+    <?php endif;?>
     <header>
-        <h1><?= $websiteText['website-header'] ?></h1>
+        <h1 class="website-header"><?= $websiteText['website-header'] ?></h1>
     </header>
     <main>
         <div class="buttons-container">
-            <a href="<?= $websiteText['add-task-button']['url'] ?>">
-                <?= $websiteText['add-task-button']['text'] ?>
-            </a>
-            <a href="<?= $websiteText['show-tasks-button']['url'] ?>">
-                <?= $websiteText['show-tasks-button']['text'] ?>
-            </a>
+            <?php if($urlParam != $typeOfActions['add-task']) :?>
+                <a href="<?= $websiteText['add-task-button']['url'] ?>">
+                    <?= $websiteText['add-task-button']['text'] ?>
+                </a>
+            <?php endif ;?>
+
+            <?php if($urlParam != $typeOfActions['task-list']) :?>
+                <a href="<?= $websiteText['show-tasks-button']['url'] ?>">
+                    <?= $websiteText['show-tasks-button']['text'] ?>
+                </a>
+            <?php endif ;?>
         </div>
         <div class="content">
             <?php 
@@ -34,6 +45,9 @@
                     break;
                     case $typeOfActions['task-list']:
                         include_once('./templates/pages/list.php');
+                    break;
+                    case $typeOfActions['empty']:
+                        include_once('./templates/pages/menu.php');
                     break;
                     default:
                         include_once('./templates/pages/404.php');
