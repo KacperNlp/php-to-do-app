@@ -109,6 +109,7 @@ a:hover,
 }
 
 .form-textarea {
+    height: 150px;
     resize: none;
 }
 
@@ -117,4 +118,32 @@ a:hover,
     border: 1px solid rgba(0,0,0, .6);
     outline: none;
     border-radius: 0;
+}
+
+.new-task-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 50px 30px;
+    border: 1px solid #777;
+    box-shadow: 0 10px 10px rgba(0,0,0, .2);
+}
+
+.new-task-title {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.new-task-description {
+    font-size: 12px;
+    line-height: 140%;
+}
+
+.empty-form-data {
+    margin-bottom: 10px;
+    color: rgb(216, 24, 24);
 }
