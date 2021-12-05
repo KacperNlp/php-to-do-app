@@ -4,12 +4,19 @@ declare(strict_types = 1);
 
 namespace App;
 
-require_once('./src/View.php');
+use App\Exception\ConfigurationException;
+
+require_once('View.php');
+require_once('Database.php');
+require_once('Exception/ConfigurationException.php');
 
 class Controller
 {
+    private static array $configuration = [];
     private array $request;
     private $view;
+    private Database $database;
+
     const TYPE_OF_ACCEPTERD_ACTIONS = [
         "add-task" => "create",
         "new-task" => "added",
@@ -17,8 +24,16 @@ class Controller
         "empty" => ""
     ];
 
+    public static function getDatabaseConfiguration(array $config) {
+        self::$configuration = $config;
+    }
+
     public function __construct(array $request)
     {
+        if(empty(self::$configuration['db']))
+            throw new ConfigurationException('Configuration ERROR!');
+
+        $this->database = new Database(self::$configuration['db']);
         $this->request = $request;
         $this->view = new View();
     }
@@ -27,6 +42,11 @@ class Controller
     {
         $action = $this->getCurrentActionOfGet();
         $dataPostParams = $this->getDataFromPost();
+
+        if($this->didUserPassParamsToCreateTask($dataPostParams)) {
+            $this->database->createNote($dataPostParams);
+            header('Location: /');
+        }
 
         if($this->ifActionIsDifferentThanExpectet($action))
             $action = null;
@@ -57,5 +77,9 @@ class Controller
     private function getDataFromPost(): array
     {
         return $this->request['post'] ?? [];
+    }
+
+    private function didUserPassParamsToCreateTask(array $data): bool {
+        return !empty($data);
     }
 }
